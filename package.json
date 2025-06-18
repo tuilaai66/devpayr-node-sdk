@@ -38,10 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xultech/devpayr-node-sdk.git"
+    "url": "https://github.com/Xultech-LTD/devpayr-node-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/xultech/devpayr-node-sdk/issues"
+    "url": "https://github.com/Xultech-LTD/devpayr-node-sdk/issues"
   },
   "homepage": "https://devpayr.com",
   "engines": {
