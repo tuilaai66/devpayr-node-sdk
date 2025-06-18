@@ -1,0 +1,59 @@
+{
+  "name": "@xultech/devpayr",
+  "version": "0.1.0",
+  "description": "DevPayr Node.js SDK for secure license validation, injectable handling, and project access enforcement.",
+  "keywords": [
+    "devpayr",
+    "sdk",
+    "license",
+    "license-manager",
+    "license-validation",
+    "injectables",
+    "api-client",
+    "saas",
+    "xultech",
+    "nodejs-sdk"
+  ],
+  "author": "XulTech Ltd",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.js",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "clean": "rimraf dist",
+    "dev": "tsc --watch",
+    "test": "echo \"No tests yet\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xultech/devpayr-node-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/xultech/devpayr-node-sdk/issues"
+  },
+  "homepage": "https://devpayr.com",
+  "engines": {
+    "node": ">=14"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "rimraf": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "crypto-js": "^4.1.1"
+  }
+}
