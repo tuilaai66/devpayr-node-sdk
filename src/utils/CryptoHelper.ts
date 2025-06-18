@@ -1,7 +1,7 @@
 // src/utils/CryptoHelper.ts
 
 import * as crypto from 'crypto';
-import { DevPayrException } from '../support/Exceptions';
+import {CryptoException} from '../support/Exceptions';
 
 export class CryptoHelper {
     /**
@@ -13,7 +13,7 @@ export class CryptoHelper {
         try {
             decoded = Buffer.from(encrypted, 'base64').toString('utf-8');
         } catch (e) {
-            throw new DevPayrException('Failed to base64-decode encrypted string.');
+            throw new CryptoException('Failed to base64-decode encrypted string.');
         }
 
         const parts = decoded.split('::');
@@ -21,7 +21,7 @@ export class CryptoHelper {
         const cipherText = parts[1];
 
         if (!iv || !cipherText) {
-            throw new DevPayrException("Invalid encrypted format — expected 'iv::cipherText'.");
+            throw new CryptoException("Invalid encrypted format — expected 'iv::cipherText'.");
         }
 
         const normalizedKey = crypto.createHash('sha256').update(key).digest();
@@ -31,7 +31,7 @@ export class CryptoHelper {
             const decipher = crypto.createDecipheriv('aes-256-cbc', normalizedKey, Buffer.from(iv, 'utf-8'));
             decrypted = decipher.update(cipherText, 'utf-8', 'utf-8') + decipher.final('utf-8');
         } catch (e) {
-            throw new DevPayrException('Decryption failed. Possibly incorrect key or corrupt data.');
+            throw new CryptoException('Decryption failed. Possibly incorrect key or corrupt data.');
         }
 
         return decrypted;
@@ -48,7 +48,7 @@ export class CryptoHelper {
         try {
             iv = crypto.randomBytes(ivLength);
         } catch (e: any) {
-            throw new DevPayrException(`IV generation failed: ${e.message}`);
+            throw new CryptoException(`IV generation failed: ${e.message}`);
         }
 
         const normalizedKey = crypto.createHash('sha256').update(key).digest();
@@ -58,7 +58,7 @@ export class CryptoHelper {
             const cipher = crypto.createCipheriv(cipherAlgo, normalizedKey, iv);
             encrypted = cipher.update(plaintext, 'utf-8', 'utf-8') + cipher.final('utf-8');
         } catch (e) {
-            throw new DevPayrException('Encryption failed.');
+            throw new CryptoException('Encryption failed.');
         }
 
         return Buffer.from(iv.toString('utf-8') + '::' + encrypted, 'utf-8').toString('base64');

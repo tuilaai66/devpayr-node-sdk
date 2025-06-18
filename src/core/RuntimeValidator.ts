@@ -1,7 +1,7 @@
 // src/core/RuntimeValidator.ts
 
 import { Config } from './Config';
-import { DevPayrException } from '../support/Exceptions';
+import {DevPayrException, LicenseValidationException} from '../support/Exceptions';
 import { InjectableHandler } from '../utils/InjectableHandler';
 import { PaymentService } from '../services/PaymentService';
 import * as path from 'path';
@@ -38,7 +38,7 @@ export class RuntimeValidator {
         const response = await new PaymentService(this.config).checkWithLicenseKey();
 
         if (!(response?.data?.has_paid ?? false)) {
-            throw new DevPayrException('Project is unpaid or unauthorized.');
+            throw new LicenseValidationException('Project is unpaid or unauthorized.');
         }
 
         this.cacheSuccess();

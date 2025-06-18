@@ -4,7 +4,7 @@ import { InjectableProcessor } from '../contracts/InjectableProcessor';
 import { InjectablePayload } from '../contracts/InjectableProcessor';
 import { CryptoHelper } from './CryptoHelper';
 import { HashHelper } from './HashHelper';
-import { DevPayrException } from '../support/Exceptions';
+import {CryptoException, DevPayrException, InjectableVerificationException} from '../support/Exceptions';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -16,7 +16,7 @@ export class InjectableHandler {
      */
     public static setProcessor(processor: InjectableProcessor): void {
         if (typeof processor.handle !== 'function') {
-            throw new DevPayrException('Custom processor must implement InjectableProcessor interface.');
+            throw new InjectableVerificationException('Custom processor must implement InjectableProcessor interface.');
         }
 
         this.customProcessor = processor;
@@ -38,7 +38,7 @@ export class InjectableHandler {
         const verify = options.verify ?? true;
 
         if (!secret) {
-            throw new DevPayrException('Injectable handler requires a secret key.');
+            throw new CryptoException('Injectable handler requires a secret key.');
         }
 
         for (const injectable of injectables) {
@@ -48,11 +48,11 @@ export class InjectableHandler {
             const signature = injectable.signature;
 
             if (!slug || !encrypted || !targetPath) {
-                throw new DevPayrException('Injectable must include name, content, and path.');
+                throw new CryptoException('Injectable must include name, content, and path.');
             }
 
             if (verify && signature && !HashHelper.verifySignature(encrypted, secret, signature)) {
-                throw new DevPayrException(`Signature verification failed for injectable: ${slug}`);
+                throw new InjectableVerificationException(`Signature verification failed for injectable: ${slug}`);
             }
 
             if (this.customProcessor) {
@@ -107,7 +107,7 @@ export class InjectableHandler {
         try {
             fs.writeFileSync(fullPath, contentToWrite);
         } catch (e) {
-            throw new DevPayrException(`Failed to write injectable to: ${fullPath}`);
+            throw new InjectableVerificationException(`Failed to write injectable to: ${fullPath}`);
         }
 
         return fullPath;
