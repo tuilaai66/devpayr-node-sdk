@@ -325,7 +325,7 @@ import { DevPayr } from '../core/DevPayr';
 // Bootstrap DevPayr SDK using a test license
 DevPayr.bootstrap({
     license: '01975a4e-bc1c-72fc-a1b5-b509d8f07c75', // Replace with a real key
-    base_url: 'http://127.0.0.1:8000/api/v1/',       // Or your DevPayr base URL
+    base_url: 'https://api.devpayr.dev/api/v1/',       // Or your DevPayr base URL
     injectables: true,                               // Fetch injectables after validation
     debug: true,                                     // Enable detailed logs
     secret: "",                                      // AES secret for decryption

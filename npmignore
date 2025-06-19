@@ -1,0 +1,28 @@
+# Don't publish source code
+/src
+/tests
+
+# Ignore configuration and tooling files
+tsconfig.json
+tsconfig.*.json
+*.tsbuildinfo
+.eslintrc.js
+.prettierrc
+*.lock
+
+# Ignore docs and meta files (if not needed)
+README.md
+CONTRIBUTING.md
+
+# Ignore Git
+.git
+.gitignore
+
+# Ignore local dev/test
+.env
+.idea
+.vscode
+*.log
+
+# Ignore package manager junk
+node_modules

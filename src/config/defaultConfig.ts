@@ -4,7 +4,7 @@
  */
 
 export const requiredConfig = {
-    base_url: 'https://api.devpayr.com/api/v1/', // Required: Base API endpoint
+    base_url: 'https://api.devpayr.dev/api/v1/', // Required: Base API endpoint
     secret: null, // Required: AES secret used for decrypting injectables
 };
 
